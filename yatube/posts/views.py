@@ -3,11 +3,12 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 
-User = get_user_model()
 
 from .models import Group, Post
 
 from .forms import PostForm
+
+User = get_user_model()
 
 
 def index(request):
