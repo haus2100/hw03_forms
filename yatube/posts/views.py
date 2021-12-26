@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 User = get_user_model()
 
 from .models import Group, Post
+
 from .forms import PostForm
 
 
@@ -83,8 +84,8 @@ def post_edit(request, post_id):
         post = form.save()
         return redirect('posts:post_detail', post_id=post_id)
     context = {
-        'form':form,
-        'is_edit':is_edit,
-        'post':post,
+        'form': form,
+        'is_edit': is_edit,
+        'post': post,
     }
     return render(request, 'posts/create_post.html', context)
