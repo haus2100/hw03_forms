@@ -10,6 +10,7 @@ from .forms import PostForm
 
 User = get_user_model()
 
+
 def get_page_context(queryset, request):
     paginator = Paginator(queryset, settings.FILL)
     page_number = request.GET.get('page')
