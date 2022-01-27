@@ -19,6 +19,9 @@ Yatube
     {% if post.group %}
       <a href="{% url 'posts:group_list' post.group.slug %}">
       все записи группы</a>
+      <p>
+        <a href="{% url 'posts:post_detail' post.id %}">подробная информация </a>
+      </p>
     {% endif %}
     {% if not forloop.last %}<hr>{% endif %}
   {% endfor %} 

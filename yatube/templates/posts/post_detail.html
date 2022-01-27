@@ -26,6 +26,11 @@
               <a href="{% url 'posts:profile' post_id.author.username %}">
                 все посты пользователя
               </a>
+              <p>
+                <a href="{% url 'posts:post_create' post_id.author.username %}">
+                  редактирование
+                </a>
+              </p>
             </li>
             {% endif %}
           </ul>
