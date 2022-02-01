@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 {% block title %}
-Пост {{ post_id.text|truncatewords:30 }}
+Пост {{ post.text|truncatewords:30 }}
 {% endblock %}
 {% block content %}
       <div class="row">
         <aside class="col-12 col-md-3">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              Дата публикации: {{ post_id.pub_date|date:"d E Y" }}
+              Дата публикации: {{ post.pub_date|date:"d E Y" }}
             </li>
             {% if post_id.group %}   
               <li class="list-group-item">
-                Группа: {{ post_id.group.title }}
+                Группа: {{ post.group.title }}
                 <a href="{% url 'posts:group_list' post_id.group.slug %}">
                   все записи группы
                 </a>
               </li>
               <li class="list-group-item">
-                Автор: {{ post_id.author.get_full_name }}
+                Автор: {{ post.author.get_full_name }}
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
               Всего постов автора:  <span >{{ posts_count }}</span>
@@ -26,18 +26,20 @@
               <a href="{% url 'posts:profile' post_id.author.username %}">
                 все посты пользователя
               </a>
-              <p>
-                <a href="{% url 'posts:post_create' post_id.author.username %}">
-                  редактирование
-                </a>
-              </p>
-            </li>
+            {% endif %}
+            {% if user.id == post.author.id %}
+              <form method="post" action="{% url 'posts:post_edit' post.id%}">
+              {% csrf_token %}
+                 <button type="submit" class="btn btn-primary">
+                  Редактировать пост
+                 </button>
+              </form>
             {% endif %}
           </ul>
         </aside>
         <article class="col-12 col-md-9">
           <p>
-            {{ post_id.text }}
+            {{ post.text }}
           </p>
         </article>
       </div>

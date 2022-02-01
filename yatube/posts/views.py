@@ -52,35 +52,30 @@ def profile(request, username):
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    user = User.objects.filter(posts=post)
-    post_list = Post.objects.filter(author=post.author)
+    author = post.author
+    post_list = author.posts.all()
     cnt_posts = post_list.count()
-    title = f'{ post }'
     template = 'posts/post_detail.html'
     context = {
-        'title': title,
         'post_list': post_list,
         'cnt_posts': cnt_posts,
         'post': post,
-        'user': user
+        'author': author
     }
     return render(request, template, context)
 
 
+@login_required
 def post_create(request):
     template = 'posts/create_post.html'
-    title = "Добавить запись"
-    form = PostForm()
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
-            return redirect('posts:profile', username=post.author)
+    form = PostForm(request.POST or None)
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.author = request.user
+        post.save()
+        return redirect('posts:profile', username=post.author)
     context = {
         'form': form,
-        'title': title,
     }
     return render(request, template, context)
 
