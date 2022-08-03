@@ -6,11 +6,11 @@ Yatube - социальная сеть для публикации личных 
 Клонировать репозиторий и перейти в него в командной строке:
 
 ```
-https://github.com/haus2100/hw05_final.git
+https://github.com/haus2100/hw03_forms.git
 ```
 
 ```
-cd hw05_final
+cd hw03_final
 ```
 
 Установите и активируйте виртуальное окружение (Windows):
